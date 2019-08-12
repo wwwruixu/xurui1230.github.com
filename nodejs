@@ -1,5 +1,7 @@
 nodejs在Mac下的卸载
 
+官网：https://nodejs.org/en/
+
 卸载：在 node 官网上下载的安装包，用安装包安装的node.应该可以用一下命令行卸载：
 
 在终端输入以下命令：
