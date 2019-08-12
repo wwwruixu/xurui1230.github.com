@@ -23,3 +23,9 @@ sudo rm -rf ~/.node-gyp
 sudo rm /opt/local/bin/node
 sudo rm /opt/local/include/node
 sudo rm -rf /opt/local/lib/node_modules
+
+
+
+Mac下全局安装yarn
+sudo -s     //切换到root账户
+npm install -g yarn react-native-cli
