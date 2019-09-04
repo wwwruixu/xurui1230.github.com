@@ -1,0 +1,148 @@
+Mysql系统表说明
+
+
+1.获取所有表结构(TABLES)
+
+SELECT  *  FROM information_schema.TABLES WHERE  TABLE_SCHEMA='数据库名';
+
+TABLES表：提供了关于数据库中的表的信息（包括视图）。详细表述了某个表属于哪个schema，表类型，表引擎，创建时间等信息。各字段说明如下：
+
+字段               含义
+Table_catalog     数据表登记目录
+Table_schema      数据表所属的数据库名
+Table_name        表名称
+Table_type        表类型[system view|base table]
+Engine            使用的数据库引擎[MyISAM|CSV|InnoDB]
+Version           版本，默认值10
+Row_format        行格式[Compact|Dynamic|Fixed]
+Table_rows        表里所存多少行数据
+Avg_row_length    平均行长度
+Data_length       数据长度
+Max_data_length   最大数据长度
+Index_length      索引长度
+Data_free         自由数据？
+Auto_increment    做自增主键的自动增量当前值
+Create_time       表的创建时间
+Update_time       表的更新时间
+Check_time        表的检查时间
+Table_collation   表的字符校验编码集
+Checksum          校验和
+Create_options    创建选项
+Table_comment     表的注释、备注
+
+
+
+2.获取表字段(COLUMNS)
+
+SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='数据库名' AND TABLE_NAME='表名'
+
+COLUMNS表：提供了表中的列信息。详细表述了某张表的所有列以及每个列的信息。各字段的说明信息如下：
+
+字段                             含义
+Table_catalog                   数据表登记目录
+Table_schema                    数据表所属的数据库名
+Table_name                      所属的表名称
+Column_name                     列名称
+Ordinal_position                字段在表中第几列
+Column_default                  列的默认数据
+Is_nullable                     字段是否可以为空
+Data_type                       数据类型
+Character_maximum_length        字符最大长度
+Character_octet_length          字节长度？
+Numeric_precision               数据精度
+Numeric_scale                   数据规模
+Character_set_name              字符集名称
+Collation_name                  字符集校验名称
+Column_type                     列类型
+Column_key                      关键列[NULL|MUL|PRI]
+Extra                           额外描述[NULL|on update CURRENT_TIMESTAMP|auto_increment]
+Privileges                      字段操作权限[select|select,insert,update,references]
+Column_comment                  字段注释、描述
+
+
+
+3.获取表键值
+
+SELECT  *  FROM information_schema.KEY_COLUMN_USAGE  WHERE  TABLE_SCHEMA='数据库名'  AND TABLE_NAME='表名'
+
+KEY_COLUMN_USAGE表：存取表的健值。各字段的说明信息如下：
+
+字段                                     含义
+Constraint_catalog                      约束登记目录
+Constraint_schema                       约束所属的数据库名
+Constraint_name                         约束的名称
+Table_catalog                           数据表等级目录
+Table_schema                            键值所属表所属的数据库名（一般与Constraint_schema值相同）
+Table_name                              键值所属的表名
+Column_name                             键值所属的列名
+Ordinal_position                        键值所属的字段在表中第几列
+Position_in_unique_constraint           键值所属的字段在唯一约束的位置（若为外键值为1）
+Referenced_talble_schema                外键依赖的数据库名（一般与Constraint_schema值相同）
+Referenced_talble_name                  外键依赖的表名
+Referenced_column_name                  外键依赖的列名
+ 
+
+
+4.获取表Check约束
+
+SELECT * FROM information_schema.TABLE_CONSTRAINTS  WHERE  TABLE_SCHEMA='数据库名' AND TABLE_NAME='表名'
+
+TABLE_CONSTRAINTS表：存储主键约束、外键约束、唯一约束、check约束。各字段的说明信息如下：
+
+字段                       含义
+Constraint_catalog        约束登记目录
+Constraint_schema         约束所属的数据库名
+Constraint_name           约束的名称
+Table_schema              约束依赖表所属的数据库名（一般与Constraint_schema值相同）
+Table_name                约束所属的表名
+Constraint_type           约束类型[primary key|foreign key|unique|check]
+
+
+
+
+5.    获取表索引
+
+SELECT * FROM information_schema.STATISTICS WHERE TABLE_SCHEMA='数据库名' AND TABLE_NAME='表名'
+
+STATISTICS表：提供了关于表索引的信息。各字段的说明信息如下：
+
+字段                       含义
+Table_catalog             数据表登记目录
+Table_schema              索引所属表的数据库名
+Table_name                索引所属的表名
+Non_unique                字段不唯一的标识
+Index_schema              索引所属的数据库名（一般与table_schema值相同）
+Index_name                索引名称
+Seq_in_index
+Column_name               索引列的列名
+Collation                 校对，列值全显示为A
+Cardinality               基数（一般与该表的数据行数相同）
+Sub_part 
+Packed                    是否包装过，默认为NULL
+Nullable                  是否为空[‘’|YES|NO]
+Index_type                索引的类型，列值全显示为BTREE（平衡树索引）
+Comment                   索引注释、备注
+
+
+
+6. mysql有关show的用法
+
+SHOW DATABASES  //列出 MySQL Server上的数据库。
+
+SHOW TABLES [FROM db_name] //列出数据库中的表。
+
+SHOW TABLE STATUS [FROM db_name] //列出数据库的表信息，比较详细。
+
+SHOW COLUMNS FROM tbl_name [FROM db_name]  //列出表的列信息，同 SHOW FIELDS FROM tbl_name [FROM db_name]，DESCRIBE tbl_name [col_name]。
+
+SHOW FULL COLUMNS FROM tbl_name [FROM db_name]  //列出表的列信息，比较详细，同 SHOW FULL FIELDS FROM tbl_name [FROM db_name]。
+
+SHOW INDEX FROM tbl_name [FROM db_name]   //列出表的索引信息。
+
+SHOW STATUS       //列出 Server 的状态信息。
+
+SHOW VARIABLES    //列出 MySQL 系参数值
+
+SHOW PROCESSLIST  //查看当前mysql查询进程
+
+SHOW GRANTS FOR user     //列出用户的授权命令
